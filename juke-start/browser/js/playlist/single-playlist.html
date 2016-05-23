@@ -1,0 +1,52 @@
+<div>
+  <h3>{{ playlist.name }}</h3>
+  <div class="well">
+  <form name="playlistSongsForm" class="form-horizontal">
+    <fieldset>
+      <legend>Add to Playlist</legend>
+      <div class="form-group">
+        <label class="col-xs-2 control-label">Song</label>
+        <div class="col-xs-10">
+<!--           <input name="songSubmit" ng-model="songName" class="form-control" type="text" required> -->
+        <select class="list-group-item" ng-model="songName" ng-options="song as song.name for song in songs" required></select>
+        </div>
+        <div class="list-group">
+<!--       <a ui-sref="artist({artistId: artist.id})">{{ artist.name }}</a> -->
+    </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-10 col-xs-offset-2">
+          <button type="submit" ng-disabled="playlistSongsForm.$invalid" ng-click="addSong(songName)" class="btn btn-success">Add Song</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+
+  <table class='table' ng-show="playlist.songs.length">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Artists</th>
+        <th>Genres</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="song in playlist.songs" ng-class="{active: song === getCurrentSong() }">
+        <td>
+          <button class="btn btn-default btn-xs" ng-click="toggle(song)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-pause': isPlaying(song), 'glyphicon-play': !isPlaying(song) }"></span>
+          </button>
+        </td>
+        <td>{{ song.name }}</td>
+        <td><span ng-repeat="artist in song.artists">{{ artist.name }}{{ $last ? '' : ', ' }}</span></td>
+        <td>{{ song.genres.join(', ') }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <small ng-hide="playlist.songs.length">No songs.</small>
+  <hr>
+</div>
