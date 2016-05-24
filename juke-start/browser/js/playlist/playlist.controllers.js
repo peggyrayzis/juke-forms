@@ -76,4 +76,15 @@ juke.controller('SinglePlaylistCtrl', function ($scope, thePlaylist, theSongs, P
     }
   };
 
+  $scope.remove = function (song) {
+    var idx = $scope.playlist.songs.indexOf(song)
+    console.log('idx', idx)
+    var id = thePlaylist.id
+      return PlaylistFactory.deleteSong(id, song)
+      .then(function(removedSong){
+        $scope.playlist.songs.splice(idx, 1)
+        return removedSong
+      })
+  };
+
 });

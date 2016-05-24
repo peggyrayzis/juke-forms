@@ -71,7 +71,14 @@ router.get('/:playlistId/songs/:songId', function (req, res) {
 });
 
 router.delete('/:playlistId/songs/:songId', function (req, res, next) {
-  req.playlist.removeSong(req.params.songId)
-  .then(() => res.sendStatus(204))
+  // const id = req.body.id || req.body.song.id;
+  req.playlist.removeAndReturnSong(req.params.songId)
+  .then(song => res.json(song))
+
+  // req.playlist.removeSong(req.params.songId)
+  // // .then(function(res){
+  // //   res.json(res)
+  // // })
+  // .then(() => res.sendStatus(204))
   .catch(next);
 });

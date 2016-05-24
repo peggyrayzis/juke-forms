@@ -34,6 +34,13 @@ module.exports = db.define('playlist', {
       const songFromDb = db.model('song').findById(songId);
       return DataTypes.Promise.all([addedToList, songFromDb])
       .spread((result, song) => song);
+    },
+    removeAndReturnSong: function (songId) { // `removeSong` doesn't promise a song.
+      songId = String(songId);
+      const songFromDb = db.model('song').findById(songId);
+      const removedFromList = this.removeSong(songId);
+      return DataTypes.Promise.all([removedFromList, songFromDb])
+      .spread((result, song) => song);
     }
   },
   hooks: { // automatically adds an artist list if we have songs
