@@ -7,8 +7,8 @@
       <div class="form-group">
         <label class="col-xs-2 control-label">Song</label>
         <div class="col-xs-10">
-<!--           <input name="songSubmit" ng-model="songName" class="form-control" type="text" required> -->
-        <select class="list-group-item" ng-model="songName" ng-options="song as song.name for song in songs" required></select>
+          <input name="songSubmit" placeholder="Search for a song" ng-model="songName" uib-typeahead="song as song.name for song in songs | filter:$viewValue | limitTo:3" class="form-control" type="text" required />
+       <!--  <select class="list-group-item" ng-model="songName" ng-options="song as song.name for song in songs" required></select> -->
         </div>
         <div class="list-group">
 <!--       <a ui-sref="artist({artistId: artist.id})">{{ artist.name }}</a> -->
